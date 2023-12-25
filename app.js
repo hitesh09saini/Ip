@@ -21,7 +21,7 @@ const path = join(__dirname, 'index.html');
 app.post('/', async (req, res) => {
   try {
     // Get client's IP address from the request
-    const clientIp = req.clientIp;
+    const clientIp = req.headers['x-forwarded-for'] || req.clientIp;
     console.log(clientIp);
     // Save IP address to a file
     await appendFile('ip_logs.txt', `${clientIp}\n`);
